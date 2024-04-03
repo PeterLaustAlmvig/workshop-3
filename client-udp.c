@@ -24,11 +24,12 @@ int main(int argc, char const *argv[]) {
 
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
+    socklen_t addrlen = sizeof(serv_addr);
     long int timer;
     
     
     // Create socket
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         perror("socket creation failed");
         exit(EXIT_FAILURE);
     }
@@ -36,32 +37,31 @@ int main(int argc, char const *argv[]) {
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(port);
 
-    int option = 1;
-    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
-
     // Convert IPv4 and IPv6 addresses from text to binary form
     if (inet_pton(AF_INET, addr, &serv_addr.sin_addr) <= 0) {
         perror("Invalid address/ Address not supported");
         exit(EXIT_FAILURE);
     }
 
-    // Connect to server
-    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-        perror("Connection failed");
+    // Send request to server
+    if (sendto(sock, NULL, 0, 0, (struct sockaddr *)&serv_addr, addrlen) < 0) {
+        perror("sendto failed");
         exit(EXIT_FAILURE);
     }
 
     // Receive response from server
-    valread = read(sock, &timer, sizeof(long int));
+    if ((valread = recvfrom(sock, &timer, sizeof(timer), 0, (struct sockaddr *)&serv_addr, &addrlen)) < 0) {
+        perror("recvfrom failed");
+        exit(EXIT_FAILURE);
+    }
 
     if(hasPasswd){
         timer = timer ^ passwd;
     }
+    timer -= 2208988800;
 
-    timer_t t = (time_t*) timer;
+    time_t t = (time_t) timer;
     
-    
-
     printf("Response from server: %jd\n", t);
 
     return 0;

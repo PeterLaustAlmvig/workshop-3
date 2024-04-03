@@ -5,7 +5,7 @@
 #include <time.h>
 #include <arpa/inet.h>
 
-#define RESTART_INTERVAL 5 // in seconds
+#define RESTART_INTERVAL 0 // in seconds
 
 int main(int argc, char const *argv[]) {
     bool hasPasswd = false;
@@ -66,6 +66,8 @@ int main(int argc, char const *argv[]) {
 
         // Send time to client
         t = time(NULL);
+        //Add 70 years in seconds.
+        t += 2208988800;
         if(hasPasswd){
             t = t ^ passwd;
         }
