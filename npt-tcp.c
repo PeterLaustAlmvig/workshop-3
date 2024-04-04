@@ -9,7 +9,7 @@
 
 int main(int argc, char const *argv[]) {
     bool hasPasswd = false;
-    int passwd = 1;
+    long int passwd = 1;
 
     if(argc < 2){
         perror("Two few arguments given\n");
