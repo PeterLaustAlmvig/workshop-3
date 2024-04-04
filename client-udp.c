@@ -63,6 +63,8 @@ int main(int argc, char const *argv[]) {
     time_t t = (time_t) timer;
     
     printf("Response from server: %jd\n", t);
+    printf("Local time from server is %s", asctime(localtime(&t)));
+
 
     return 0;
 }

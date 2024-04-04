@@ -59,10 +59,11 @@ int main(int argc, char const *argv[]) {
     }
     timer -= 2208988800;
 
-    timer_t t = (time_t*) timer;
+    time_t t = (time_t) timer;
     
     
     printf("Response from server: %jd\n", t);
+    printf("Local time from server is %s", asctime(localtime(&t)));
 
     return 0;
 }
