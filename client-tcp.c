@@ -6,6 +6,14 @@
 #include <arpa/inet.h>
 #include <time.h>
 
+int calculate_skew(long int t){
+    int skew;
+    time_t t_n = time(NULL);
+
+    skew = t_n - t;
+    
+    return skew;
+}
 
 int main(int argc, char const *argv[]) {
     bool hasPasswd = false;
@@ -58,12 +66,13 @@ int main(int argc, char const *argv[]) {
         timer = timer ^ passwd;
     }
     timer -= 2208988800;
-
+    int skew = calculate_skew(timer);
     time_t t = (time_t) timer;
     
     
     printf("Response from server: %jd\n", t);
-    printf("Local time from server is %s", asctime(localtime(&t)));
+    printf("Local time from server is %s\n", asctime(localtime(&t)));
+    printf("Skew is %d seconds\n", skew);
 
     return 0;
 }

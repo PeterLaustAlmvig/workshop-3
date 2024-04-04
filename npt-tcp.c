@@ -67,6 +67,7 @@ int main(int argc, char const *argv[]) {
         // Send time to client
         t = time(NULL);
         //Add 70 years in seconds.
+        //t = (long int) t;
         t += 2208988800;
         if(hasPasswd){
             t = t ^ passwd;
@@ -81,3 +82,4 @@ int main(int argc, char const *argv[]) {
 
     return 0;
 }
+
