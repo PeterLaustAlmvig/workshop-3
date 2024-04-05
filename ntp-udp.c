@@ -9,7 +9,7 @@
 
 int main(int argc, char const *argv[]) {
     bool hasPasswd = false;
-    long int passwd = 1;
+    long int passwd = 0;
 
     if(argc < 2){
         perror("Two few arguments given\n");
@@ -22,13 +22,13 @@ int main(int argc, char const *argv[]) {
     }
     long int port = atoi(argv[1]);
 
-    int server_fd, new_socket;
+    int server_fd;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
     time_t t; // Example long int value
 
     // Creating socket file descriptor
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+    if ((server_fd = socket(AF_INET, SOCK_DGRAM, 0)) == 0) {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
@@ -38,13 +38,6 @@ int main(int argc, char const *argv[]) {
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(port);
 
-    // Set socket option to reuse address
-    int opt = 1;
-    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
-        perror("setsockopt failed");
-        exit(EXIT_FAILURE);
-    }
-
     // Bind the socket to localhost and specific port
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0) {
         perror("bind failed");
@@ -52,34 +45,32 @@ int main(int argc, char const *argv[]) {
     }
 
     while (1) {
-        // Start listening for incoming connections
-        if (listen(server_fd, 3) < 0) {
-            perror("listen failed");
+        // Receive data from client
+        if (recvfrom(server_fd, &t, sizeof(t), 0, (struct sockaddr *)&address, (socklen_t*)&addrlen) < 0) {
+            perror("recvfrom failed");
             exit(EXIT_FAILURE);
         }
 
-        // Accept incoming connections
-        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))<0) {
-            perror("accept failed");
-            exit(EXIT_FAILURE);
+        t = time(NULL);
+        //add 70 years in seconds.
+        t += 2208988800;
+
+        time_t network_time = htonl(t);
+
+        if(hasPasswd){
+            network_time = network_time ^ passwd;
         }
 
         // Send time to client
-        t = time(NULL);
-        //Add 70 years in seconds.
-        //t = (long int) t;
-        t += 2208988800;
-        if(hasPasswd){
-            t = t ^ passwd;
+        if (sendto(server_fd, &t, sizeof(t), 0, (struct sockaddr *)&address, addrlen) < 0) {
+            perror("sendto failed");
+            exit(EXIT_FAILURE);
         }
-        send(new_socket, &t, sizeof(t), 0);
+
         printf("Time sent to client\n");
 
-        close(new_socket);
-        // Do not close server_fd to keep it running
-        sleep(RESTART_INTERVAL); // Wait before restarting the server
+        sleep(RESTART_INTERVAL); // Wait before processing next request
     }
 
     return 0;
 }
-

@@ -18,7 +18,7 @@ int calculate_skew(long int t){
 
 int main(int argc, char const *argv[]) {
     bool hasPasswd = false;
-    long int passwd = 1;
+    long int passwd = 0;
     if(argc < 3){
         fprintf(stderr, "Two few arguments given\n");
         exit(EXIT_FAILURE);
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[]) {
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
     socklen_t addrlen = sizeof(serv_addr);
-    long int timer;
+    long int network_time;
     
     
     // Create socket
@@ -59,10 +59,12 @@ int main(int argc, char const *argv[]) {
     }
 
     // Receive response from server
-    if ((valread = recvfrom(sock, &timer, sizeof(timer), 0, (struct sockaddr *)&serv_addr, &addrlen)) < 0) {
+    if ((valread = recvfrom(sock, &network_time, sizeof(network_time), 0, (struct sockaddr *)&serv_addr, &addrlen)) < 0) {
         perror("recvfrom failed");
         exit(EXIT_FAILURE);
     }
+    
+    long int timer = ntohl(network_time);
 
     if(hasPasswd){
         timer = timer ^ passwd;
