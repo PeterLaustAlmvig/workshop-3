@@ -47,7 +47,7 @@ int main(int argc, char const *argv[]) {
     int option = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 
-    // Convert IPv4 and IPv6 addresses from text to binary form
+    // Convert IPv4 addresses from text to binary form
     if (inet_pton(AF_INET, addr, &serv_addr.sin_addr) <= 0) {
         perror("Invalid address/ Address not supported");
         exit(EXIT_FAILURE);
@@ -73,7 +73,7 @@ int main(int argc, char const *argv[]) {
     time_t t = (time_t) timer;
     
     
-    printf("Response from server: %jd\n", t);
+    printf("Response from server: %jd\n", network_time);
     printf("Local time from server is %s\n", asctime(localtime(&t)));
     printf("Skew is %d seconds\n", skew);
 

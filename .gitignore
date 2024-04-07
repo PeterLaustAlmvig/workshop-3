@@ -19,7 +19,9 @@ build/
 # Precompiled Headers
 *.gch
 *.pch
-
+```bash
+    ./client-tcp <ip> <port> [password]
+```
 # Libraries
 *.lib
 *.a
