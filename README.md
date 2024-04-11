@@ -5,6 +5,8 @@ A simple NTP server and client for both UDP and TCP written in C.
   
 This project has been tested to work on Linux and MacOS but *not* Windows.
 
+### Note:  
+Please note that this program has not been thoroughly tested and given the wrong input it will seg fault!
 
 ## Installation
 
