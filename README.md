@@ -5,6 +5,8 @@ A simple NTP server and client for both UDP and TCP written in C.
   
 This project has been tested to work on Linux and MacOS but *not* Windows.
 
+### Note:  
+Please note that this program has not been thoroughly tested and given the wrong input it will seg fault!
 
 ## Installation
 
@@ -31,13 +33,8 @@ This will build the project. All the executables will be found in the build fold
 
 ```bash
     $ ls
-    build  
-    client-tcp.c    
-    client-udp.c  
-    CMakeLists.txt    
-    ntp-tcp.c  
-    ntp-udp.c  
-    time_test.c
+    client-tcp  CMakeCache.txt  cmake_install.cmake  ntp-tcp  time_test
+    client-udp  CMakeFiles      Makefile             ntp-udp
 ```
 
 ## Usage/Examples
