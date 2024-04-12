@@ -33,13 +33,8 @@ This will build the project. All the executables will be found in the build fold
 
 ```bash
     $ ls
-    build  
-    client-tcp.c    
-    client-udp.c  
-    CMakeLists.txt    
-    ntp-tcp.c  
-    ntp-udp.c  
-    time_test.c
+    client-tcp  CMakeCache.txt  cmake_install.cmake  ntp-tcp  time_test
+    client-udp  CMakeFiles      Makefile             ntp-udp
 ```
 
 ## Usage/Examples
