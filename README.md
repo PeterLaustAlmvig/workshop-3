@@ -73,16 +73,16 @@ If the server is running locally on your machine you can run the client like so
 ### Output
 When running the server it will write out if the server has been password enabled.  
 It will write out every time the time has been sent to a client.  
+It will write out the time it sent (in seconds passed since Jan 1st 1900).
+It will write out the timestamp converted to the local time zone.  
   
 When running the client it will write out if a password was passed.  
-It will write out the response from the server (seconds passed since Jan 1st 1900).  
-It will write out the time stamp converted to the local time zone.  
+It will write out the response from the server (in seconds passed since Jan 1st 1900).  
+It will write out the timestamp converted to the local time zone.  
 It will write out the skew in seconds.
 
 
 
 ## Screenshots
 
-![](pictures/running-server.png)
-
-![](pictures/running-client.png)
+![](pictures/running-both.png)
