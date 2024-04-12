@@ -66,6 +66,8 @@ int main(int argc, char const *argv[]) {
     
     long int timer = ntohl(network_time);
 
+    printf("Response from server: %jd\n", timer);
+
     if(hasPasswd){
         timer = timer ^ passwd;
     }
@@ -74,7 +76,6 @@ int main(int argc, char const *argv[]) {
 
     time_t t = (time_t) timer;
     
-    printf("Response from server: %jd\n", network_time);
     printf("Local time from server is %s", asctime(localtime(&t)));
     printf("Skew is %d seconds\n", skew);
 

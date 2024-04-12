@@ -75,9 +75,10 @@ int main(int argc, char const *argv[]) {
         if(hasPasswd){
             network_time = network_time ^ passwd;
         }
-
+        
         send(new_socket, &network_time, sizeof(network_time), 0);
-        printf("Time sent to client\n");
+        printf("Time %jd sent to client\n", t);
+        printf("Time sent to client is %s.\n", asctime(localtime(&t)));
 
         close(new_socket);
         // Do not close server_fd to keep it running

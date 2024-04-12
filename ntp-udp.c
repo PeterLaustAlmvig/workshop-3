@@ -20,6 +20,8 @@ int main(int argc, char const *argv[]) {
         hasPasswd = true;
         passwd = atoi(argv[2]);
     }
+    
+
     long int port = atoi(argv[1]);
 
     int server_fd;
@@ -67,7 +69,8 @@ int main(int argc, char const *argv[]) {
             exit(EXIT_FAILURE);
         }
 
-        printf("Time sent to client\n");
+        printf("Time %jd sent to client\n", t);
+        printf("Time sent to client is %s.\n", asctime(localtime(&t)));
 
         sleep(RESTART_INTERVAL); // Wait before processing next request
     }
