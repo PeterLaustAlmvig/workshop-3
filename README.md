@@ -1,3 +1,4 @@
+# This project was an assignment in Computer Networks To write a NTP client/server in TCP & UDP
 
 # Simple NTP TCP/UDP server/client
 
