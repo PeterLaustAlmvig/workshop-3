@@ -14,28 +14,28 @@ Please note that this program has not been thoroughly tested and given the wrong
 Clone the repository
 
 ```bash
-  git clone https://github.com/PeterLaustAlmvig/workshop-3.git  
+  git clone git@github.com:PeterLaustAlmvig/workshop-3-NTP-Client-Server.git  
 ```
 
 ## Build the project
 
 Go to the root of the project
 ```bash
-    cd workshop-3/
+  cd workshop-3/
 ```
 Build the project by running
 ```bash
-    mkdir build
-    cd build
-    cmake ..
-    cmake --build .
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build .
 ```
 This will build the project. All the executables will be found in the build folder.
 
 ```bash
-    $ ls
-    client-tcp  CMakeCache.txt  cmake_install.cmake  ntp-tcp  time_test
-    client-udp  CMakeFiles      Makefile             ntp-udp
+  $ ls
+  client-tcp  CMakeCache.txt  cmake_install.cmake  ntp-tcp  time_test
+  client-udp  CMakeFiles      Makefile             ntp-udp
 ```
 
 ## Usage/Examples
@@ -45,11 +45,11 @@ The password argument is optional.
 
 ### Starting the server
 ```bash
-    ./ntp-tcp <port> [password]
+  ./ntp-tcp <port> [password]
 ```
 or
 ```bash
-    ./ntp-udp <port> [password]
+  ./ntp-udp <port> [password]
 ```
 If you get an error like
 ```bash
@@ -60,15 +60,15 @@ Try setting the port to 25564 or something similar.
 ### Starting the client
 Please note that only IPv4 addresses are supported.
 ```bash
-    ./client-tcp <ip> <port> [password]
+  ./client-tcp <ip> <port> [password]
 ```
 or
 ```bash
-    ./client-udp <ip> <port> [password]
+  ./client-udp <ip> <port> [password]
 ```
 If the server is running locally on your machine you can run the client like so
 ```bash
-    ./client-tcp 127.0.0.1 <port> [password]
+  ./client-tcp 127.0.0.1 <port> [password]
 ```
 
 ### Output
